@@ -1,7 +1,7 @@
+from os import path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import os
-import path
+
 from flask_login import LoginManager
 
 db = SQLAlchemy()

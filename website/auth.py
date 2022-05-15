@@ -13,10 +13,11 @@ def login():
 
 @auth.route("/sign-up", methods=['GET', 'POST'])
 def sign_up():
-    email = request.form.get("email")
-    username = request.form.get("username")
-    password1 = request.form.get("password1")
-    password2 = request.form.get("password2")
+    if request.method == "POST":
+       email = request.form.get("email")
+       username = request.form.get("username")
+       password1 = request.form.get("password1")
+       password2 = request.form.get("password2")
     print(username)
     return render_template("signup.html")
 
