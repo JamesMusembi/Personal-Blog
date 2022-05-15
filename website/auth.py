@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template,redirect, url_for ,request, flash
 from .import db
 from .models import User
+from flask_login import login_user, logout_user,login_required
 
 auth = Blueprint("auth", __name__)
 
@@ -37,7 +38,13 @@ def sign_up():
     elif len(password1) < 6:
         flash("Password is too short.", category="error")
     elif len(email) < 10:
-        flash("Username is too short.", category="error")
+        flash("Email is invalid.", category="error")
+    else:
+        new_user = User(email=email, username=username, password1=password1)
+        db.session.add(new_user)
+        db.session.commit()
+        flash("User created!")
+        return redirect(url_for("views.home"))
 
 
     print(username)
