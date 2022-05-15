@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template,redirect, url_for ,request
+from flask import Blueprint, render_template,redirect, url_for ,request, flash
+from .import db
+from .models import User
 
 auth = Blueprint("auth", __name__)
 
@@ -18,6 +20,26 @@ def sign_up():
        username = request.form.get("username")
        password1 = request.form.get("password1")
        password2 = request.form.get("password2")
+
+
+       email_exists = User.query.filter_by(email=email).first()
+       username_exists = User.query.filter_by(username=username).first()
+
+       if email_exists:
+           flash("Email is already in use.",  category="error")
+    elif username_exists:
+            flash("Username is already in use. ", category="error")
+    elif password1 != password2:
+        flash("password don\ "t match!", category="error")
+
+    elif len(username) < 2:
+        flash("Username is too short.", category="error")
+    elif len(password1) < 6:
+        flash("Password is too short.", category="error")
+    elif len(email) < 10:
+        flash("Username is too short.", category="error")
+
+
     print(username)
     return render_template("signup.html")
 
