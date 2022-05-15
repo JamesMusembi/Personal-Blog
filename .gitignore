@@ -1,0 +1,5 @@
+virtual/
+.vscode/
+*.pcy
+__pycache__/
+.__pycache__/
