@@ -1,13 +1,16 @@
-import imp
-from importlib.resources import path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
 # import os import path
+from flask_login import LoginManager
+
+db = SQLAlchemy()
+DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "]Ee]zAtR|,U2X~$698rd"
+    app.config["SQL_ALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
+    db.init_app(app)
     
     from .views import views
     from .auth import auth
