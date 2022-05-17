@@ -58,10 +58,16 @@ class Blog(db.Model):
     author=db.Column(db.String(255),nullable=False)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    comments = db.relationship('Comment', backref='blog', lazy=True)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
     downvotes = db.Column(db.Integer, default=0)
     upvotes = db.Column(db.Integer, default=0)
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
     def __repr__(self):
       return self.title
@@ -72,7 +78,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=False)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
