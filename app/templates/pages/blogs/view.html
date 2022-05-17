@@ -1,77 +1,112 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="quote">
-                <p>
-                    <span class="quote-q">"</span>
-                    {{quote2.quote}}
-                </p>
-                <p>
-                    <small>
-                        {{quote2.author}}
-                    </small>
-                </p>
-            </div>
-            <div class="py-5">
-                {{ blog.content | safe }}
-            </div>
-            <div class="quote">
-                <p>
-                    <span class="quote-q">"</span>
-                    {{quote1.quote}}
-                </p>
-                <p>
-                    <small>
-                        {{quote1.author}}
-                    </small>
-                </p>
-            </div>
-            <div class="comments">
-                comments
-            </div>
-            <div class="comment-form">
-                <form action=""></form>
-            </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="quote">
+        <p>
+          <span class="quote-q">"</span>
+          {{quote2.quote}}
+        </p>
+        <p>
+          <small> {{quote2.author}} </small>
+        </p>
+      </div>
+      <div class="py-5 quote my-3">
+        <div>
+          <h4>{{blog.title}}</h4>
+          {{ blog.content | safe }}
         </div>
-        <div class="col-md-4 ">
-           <div>
-            <div class="quote mb-4">
-                <p>
-                    <span class="quote-q">"</span>
-                    {{quote3.quote}}
-                </p>
-                <p>
-                    <small>
-                        {{quote3.author}}
-                    </small>
-                </p>
-            </div>
-            {% for blog in blogs %}
-            <div class="mb-3">
-                <div class="blog">
-                    <a href="{{url_for('main.view_blog',blog_id=blog.id)}}">
-                        <h2>
-                            {{blog.title}}
-                        </h2>
-                    </a>
-                </div>
-            </div>
-          {% endfor %}
-          <div class="quote">
-            <p>
-                <span class="quote-q">"</span>
-                {{quote4.quote}}
-            </p>
-            <p>
-                <small>
-                    {{quote4.author}}
-                </small>
-            </p>
+        {% if current_user.is_authenticated %}
+        <a href=""></a>
+        <button class="btn btn-outline-info mx-4">Update</button>
+        <a href="{{url_for('main.delete_blog',blog_id=blog.id)}}" class="btn btn-outline-danger">Delete</a>
+        
+        {% endif %}
+      </div>
+      <div>
+        <h3 class="my-3">COMMENTS</h3>
+        {% for comment in comments %}
+        <div class="my-3 quote">
+          <h5 class="text-capitalize">{{comment.user.username}}</h5>
+          <div>
+            <p>{{comment.content}}</p>
+          </div>
+          <a href="/"><i class="far fa-trash-alt text-danger"></i></a>
         </div>
-           </div> 
+        {% endfor %}
+      </div>
+      {% if current_user.is_authenticated %}
+      <div class="my-4">
+        <div class="form">
+          <div class="card custom-card p-2 commentform">
+            <h3 class="text-center">Leave a comment</h3>
+            <form
+              action="{{ url_for('main.comment_view',blog_id=blog.id) }}"
+              method="post"
+              class="">
+              <div class="form-group">
+                <label for="">Comment</label>
+                <textarea
+                  id=""
+                  rows="5"
+                  class="form-control input-lg mt-2 outline-none bg-none shadow-none custom-input commentform"
+                  name="comment"
+                ></textarea>
+              </div>
+              <div class="form-group mt-2">
+                <button class="btn btn-outline-info custom-btn">Submit</button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
+      {% else %}
+      <div class="alert alert-info p-3 mt-3">
+        <p class="m-0 p-0">You must be logged in to comment.</p>
+      </div>
+      {% endif %}
+    
+    <div class="quote">
+      <p>
+        <span class="quote-q">"</span>
+        {{quote1.quote}}
+      </p>
+      <p>
+        <small> {{quote1.author}} </small>
+      </p>
     </div>
+  </div>
+    <div class="col-md-4">
+      <div>
+        <div class="quote mb-4">
+          <p>
+            <span class="quote-q">"</span>
+            {{quote3.quote}}
+          </p>
+          <p>
+            <small> {{quote3.author}} </small>
+          </p>
+        </div>
+        {% for blog in blogs %}
+        <div class="mb-3">
+          <div class="blog">
+            <a href="{{url_for('main.view_blog',blog_id=blog.id)}}">
+              <h2>{{blog.title}}</h2>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="quote">
+          <p>
+            <span class="quote-q">"</span>
+            {{quote4.quote}}
+          </p>
+          <p>
+            <small> {{quote4.author}} </small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
