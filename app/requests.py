@@ -11,6 +11,7 @@ def configure_request(app):
     base_url = app.config['BLOG_API_BASE_URL']
 
 
+
 def get_blogs():
     get_blogs_url=base_url
     print("base",get_blogs_url)
