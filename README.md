@@ -5,6 +5,16 @@ This is a blog website made using flask for the front-end and  backend
 ## Author
 # James Musembi
 
+## Table of content
++ [Description](#description)
++ [Development server](#start.sh)
++ [Technology Used](#technology-used)
++ [Setup instructions](#setup-instruction)
++ [Reference](#reference)
++ [License](#license-Copyright)
++ [Authors Info](#author-Info/contacts)
+
+
 ## User Story
 - Sign in to the application to start using.
 - View diffrent blogs.
