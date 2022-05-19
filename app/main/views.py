@@ -1,12 +1,11 @@
 
 from flask import render_template,request,redirect,url_for, flash
-from sqlalchemy import delete
+# from sqlalchemy import delete
 from ..requests import get_blogs
 from . import main
 from .. import db, login_manager
 from ..models import Blog, User,Comment
 from flask_login import  current_user ,login_required
-from ..email import mail_message
 
 @login_manager.user_loader
 def load_user(user_id):

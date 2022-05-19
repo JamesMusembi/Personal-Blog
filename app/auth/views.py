@@ -4,7 +4,7 @@ from .forms import RegistrationForm,LoginForm
 from flask_login import login_user,login_required,logout_user
 from app.models import  User
 from app import db
-# from ..email import mail_message
+
 from . import auth
 
 

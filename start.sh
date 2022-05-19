@@ -5,4 +5,4 @@ export MAIL_USERNAME='makovejames@gmail.com'
 export MAIL_PASSWORD='jamo267@#'
 
 
-python3.9 manage.py server
+python3.8 manage.py server
